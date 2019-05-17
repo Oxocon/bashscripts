@@ -6,6 +6,7 @@ The scripts were written for our own internal use, but we thought we should put 
 Scripts found on this page:
 1. syncdns
 2. digit
+3. digit-file
 
 #### 1. syncdns
 Simple bash script that performs a manual `rndc retransfer` followed by a `rndc reload`. Useful for speeding up the synchronization of domain names from a master DNS server to a BIND slave DNS server.
@@ -17,10 +18,10 @@ To install, simply put the **syncdns** file in your bin folder and make it execu
 `chmod u+x syncdns`
 
 ###### Usage
-`syncdns _domain1.com domain2.com domain3.com_`
+`syncdns domain1.com domain2.com domain3.com`
 
 ###### Tips
-If you need to add more than 10 domain names at a time, change the last argument in the for statement on line 29:
+If you need to add more than 10 domain names at a time, change the last argument in the for statement:
 `for i in ${@:1:10};`
 
 #### 2. digit
@@ -33,10 +34,18 @@ To install, simply put the **digit** file in your bin folder and make it executa
 `chmod u+x digit`
 
 ###### Usage:
-`digit _domain1.com domain2.com domain3.com_`
+`digit domain1.com domain2.com domain3.com`
+
+In addition to the domain name, you can add a set of hostnames that you want to check. Insert any extra hostnames between the parantheses on this line:
+hostnames=();
+
+Multiple hostnames should be separated using a space, like this:
+hostname=(mail webmail mysql dev);
+
+(Will lookup A and AAAA records for mail.domain.com, webmail.domain.com and so forth, in addition to domain.com).
 
 ###### Tips
-If you need to add more than 10 domain names at a time, change the last argument in the for statement on line 25:
+If you need to add more than 10 domain names at a time, change the last argument in the for statement:
 `for i in ${@:1:10};`
 
 If you want to add more record types or change their order, you can do it adjusting this line:
@@ -45,7 +54,33 @@ If you want to add more record types or change their order, you can do it adjust
 
 For example, to add DNSKEY, simply add $i (representing the domain name) followed by the record type DNSKEY:
 
-`dig +noall +answer $i A $i AAAA $i NS $i MX $i TXT $i SOA **$i DNSKEY**;`
+`dig +noall +answer $i A $i AAAA $i NS $i MX $i TXT $i SOA $i DNSKEY;`
+
+#### 2. digit-file
+Works the same way as digit, but uses a text file as input instead of command line arguments.
+
+Domain names you would like to check should be added in a separate file, with one domain name per line, like this:
+domain1.com
+domain2.com
+domain3.com
+
+Use the name of the file containing the list of domain names as argument. For example:
+digit-file domains.txt
+
+Add any additional hostnames (domain prefixes) to lookup on this line:
+hostnames=();
+
+Multiple hostnames should be separated using a space, like this:
+hostname=(mail webmail mysql dev);
+
+###### Installation
+To install, simply put the **digit-file** file in your bin folder and make it executable by issuing the command:
+`chmod u+x digit`
+
+You should also add a text file containing the domain names to check. The name of the text file should be used as an argument to the digit-file command.
+
+###### Usage:
+`digit-file domains.txt`
 
 ### License
 Unlicense (http://unlicense.org/)

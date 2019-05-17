@@ -1,0 +1,6 @@
+www
+mail
+webmail
+cpanel
+mysql
+remote

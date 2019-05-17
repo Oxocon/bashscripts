@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Script may run with up to ten domain names as parameters
+# syncdns domain1.no domain2.no domain3.no
+
+echo
+echo
+echo "  ------------------------------------"
+echo "  --- SyncDNS by Endre Ottem, UENO ---"
+echo "  ------------------------------------"
+echo
+
+# Throw an error and exit if command lacks parameters
+if [ -z $1 ]
+then
+  echo "";
+  echo "  You have to provide at least one domain name."
+  echo "";
+  echo "  Examples:";
+  echo "  syncdns domain1.com";
+  echo "  ..or:";
+  echo "  syncdns domain1.com domain2.com domain3.com";
+  exit $E_NOARGS
+fi
+
+# Run rndc transfer and rndc reload for every domain.
+for i in ${@:1:10};
+   do
+      echo "  Syncing domain $i";
+      echo "  -- Executing rndc retransfer..";
+        rndc retransfer $i > /dev/null 2>&1;
+      echo "  -- Executing rndc reload..";
+        rndc reload $i > /dev/null 2>&1;
+      echo "  Finished syncing comain $i";
+      echo "";
+   done
+
+echo "";
+exit 0

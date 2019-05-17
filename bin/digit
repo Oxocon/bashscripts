@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Script may run with up to ten domain names as parameters
+# Usage: digit domain1.no domain2.no domain3.no
+
+# Additional host names to check (checks A and AAAA records)
+# i.e.: hostnames=(www mail webmail cpanel)
+HOSTNAMES=();
+RESOLVER="";
+
+echo
+echo
+echo "------------------------------------"
+echo "---  digit by Endre Ottem, UENO  ---"
+echo "------------------------------------"
+echo
+
+# Throw an error and exit if command lacks parameters
+if [ -z $1 ]
+then
+  echo "";
+  echo "Usage: digit [domain-name]";
+  exit $E_NOARGS
+fi
+
+
+# Run dig commands for one or more domains
+for i in ${@:1:10};
+   do
+      echo "--------------------------------------------------------------------------------";
+      echo "  DOMAIN: " "$i";
+      if [ -z "${RESOLVER}" ]; then
+        echo "  (using default resolver)";
+      else
+        echo "  (using $RESOLVER)";
+      fi
+      echo "--------------------------------------------------------------------------------";
+
+      if [ -z "${RESOLVER}" ]; then
+        dig +noall +answer $i A $i AAAA $i NS $i MX $i TXT $i SOA;
+      else
+        dig @${RESOLVER} +noall +answer $i A $i AAAA $i NS $i MX $i TXT $i SOA ;
+      fi
+      for name in "${HOSTNAMES[@]}";
+        do
+          dig +noall +answer $name.$i A $name.$i AAAA;
+        done
+   done
+
+echo
+exit 0

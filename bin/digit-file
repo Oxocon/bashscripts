@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Loads a text file with a list of domain names to look up. Use the name of the file containing the list of domains to check as argument.
+# Usage: digit-file filename.txt
+
+# Additional host names to check (checks A and AAAA records)
+# i.e.: hostnames=(www mail webmail cpanel)
+hostnames=();
+
+echo
+echo
+echo "-----------------------------------------"
+echo "---  digit-file by Endre Ottem, UENO  ---"
+echo "-----------------------------------------"
+echo
+
+# Throw an error and exit if command lacks parameters
+if [ -z $1 ]
+then
+  echo "";
+  echo "Usage: digit-file [filename.txt]";
+  exit $E_NOARGS
+fi
+
+
+# Run dig commands for one or more domains
+for domain in $(cat $1);
+   do
+      echo "--------------------------------------------------------------------------------";
+      echo "-- DOMAIN: $domain";
+      echo "--------------------------------------------------------------------------------";
+
+      dig +noall +answer $domain A $domain AAAA $domain NS $domain MX $domain TXT $domain SOA;
+      for hostname in "${hostnames[@]}";
+          do
+            dig +noall +answer $hostname.$domain A $name.$i AAAA;
+          done
+   done
+
+echo
+exit 0

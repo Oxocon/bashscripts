@@ -4,8 +4,11 @@
 # Usage: digit domain1.no domain2.no domain3.no
 
 # Additional host names to check (checks A and AAAA records)
-# i.e.: hostnames=(www mail webmail cpanel)
+# i.e.: HOSTNAMES=(www mail webmail cpanel)
 HOSTNAMES=();
+
+# Add a custom DNS server to use for lookups (ip or hostname)
+# i.e.: RESOLVER="1.1.1.1";
 RESOLVER="";
 
 echo

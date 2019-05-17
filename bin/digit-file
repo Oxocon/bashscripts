@@ -4,8 +4,8 @@
 # Usage: digit-file filename.txt
 
 # Additional host names to check (checks A and AAAA records)
-# i.e.: hostnames=(www mail webmail cpanel)
-hostnames=();
+# i.e.: HOSTNAMES=(www mail webmail cpanel)
+HOSTNAMES=();
 
 echo
 echo

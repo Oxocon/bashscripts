@@ -25,9 +25,9 @@ If you need to add more than 10 domain names at a time, change the last argument
 `for i in ${@:1:10};`
 
 #### 2. digit
-Simple bash script that uses the dig command to lookup multiple DNS records for one or more domain names at a time. 
+Simple bash script that uses the **dig** command to lookup multiple DNS records for one or more domain names at a time. 
 
-Requires dig to already be installed on the machine.
+Requires **dig** to already be installed on the machine.
 
 ###### Installation
 To install, simply put the **digit** file in your bin folder and make it executable by issuing the command:
@@ -37,10 +37,10 @@ To install, simply put the **digit** file in your bin folder and make it executa
 `digit domain1.com domain2.com domain3.com`
 
 In addition to the domain name, you can add a set of hostnames that you want to check. Insert any extra hostnames between the parantheses on this line:
-hostnames=();
+`HOSTNAMES=();`
 
 Multiple hostnames should be separated using a space, like this:
-hostname=(mail webmail mysql dev);
+`HOSTNAMES=(mail webmail mysql dev);`
 
 (Will lookup A and AAAA records for mail.domain.com, webmail.domain.com and so forth, in addition to domain.com).
 
@@ -60,18 +60,18 @@ For example, to add DNSKEY, simply add $i (representing the domain name) followe
 Works the same way as digit, but uses a text file as input instead of command line arguments.
 
 Domain names you would like to check should be added in a separate file, with one domain name per line, like this:
-domain1.com
+`domain1.com
 domain2.com
-domain3.com
+domain3.com`
 
 Use the name of the file containing the list of domain names as argument. For example:
-digit-file domains.txt
+`digit-file domains.txt`
 
 Add any additional hostnames (domain prefixes) to lookup on this line:
-hostnames=();
+`HOSTNAMES=();`
 
 Multiple hostnames should be separated using a space, like this:
-hostname=(mail webmail mysql dev);
+`HOSTNAMES=(mail webmail mysql dev);`
 
 ###### Installation
 To install, simply put the **digit-file** file in your bin folder and make it executable by issuing the command:
@@ -85,7 +85,7 @@ You should also add a text file containing the domain names to check. The name o
 ### License
 Unlicense (http://unlicense.org/)
 
-This is free and unencumbered software released into the public domain.
+_This is free and unencumbered software released into the public domain.
 
 Anyone is free to copy, modify, publish, use, compile, sell, or
 distribute this software, either in source code form or as a compiled
@@ -108,4 +108,4 @@ OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
-For more information, please refer to <http://unlicense.org>
+For more information, please refer to <http://unlicense.org>_

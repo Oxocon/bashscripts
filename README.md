@@ -60,9 +60,9 @@ For example, to add DNSKEY, simply add $i (representing the domain name) followe
 Works the same way as digit, but uses a text file as input instead of command line arguments.
 
 Domain names you would like to check should be added in a separate file, with one domain name per line, like this:
-`domain1.com
-domain2.com
-domain3.com`
+`domain1.com`
+`domain2.com`
+`domain3.com`
 
 Use the name of the file containing the list of domain names as argument. For example:
 `digit-file domains.txt`
